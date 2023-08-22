@@ -22,4 +22,4 @@ stages:
     displayName: Deploy to EC2
     steps:
     - script: 
-        $SSH_PRIVATE_KEY
+        echo $(SSH_PRIVATE_KEY)
