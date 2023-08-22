@@ -1,34 +1,28 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: $APP_NAME
-  name: $APP_SERVICE_NAME-service
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: $APP_NAME
-  template:
-    metadata:
-      labels:
-        app: $APP_NAME
-    spec:
-      containers:
-      - name: $APP_NAME
-        image: $IMAGE_SLUG
-        imagePullPolicy: Always
-      imagePullSecrets:
-      - name: dockerhub-image-pull-token
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: $APP_SERVICE_NAME-service
-spec:
-  type: NodePort
-  selector:
-    app: $APP_NAME
-  ports:
-    - port: 80
+trigger:
+- master
 
+resources:
+- repo: self 
+
+variables:
+  ImageName: 'shruti1402/my-flask-app-new175'
+#variables:
+#  tag: '$(Build.BuildId)'
+
+pr:
+- "*"
+
+
+stages:
+
+- stage: Deploy
+  displayName: Deploy to EC2
+  jobs:
+  - job: Deploy
+    displayName: Deploy to EC2
+    steps:
+    - script: 
+#        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+#        chmod 600 ~/.ssh/id_rsa
+        ssh -o "StrictHostKeyChecking no" -i $(SSH_PRIVATE_KEY) ubuntu@$EC2_PUBLIC_IP "docker login; docker pull $(ImageName); docker run -d -p 8080:8000 $(ImageName)"
+      displayName: 'SSH into EC2 and Pull Docker Image'
