@@ -4,8 +4,10 @@ trigger:
 resources:
 - repo: self 
 
+
 variables:
-  ImageName: 'shruti1402/my-flask-app-new175'
+  - group: mohit
+
 #variables:
 #  tag: '$(Build.BuildId)'
 
@@ -22,4 +24,4 @@ stages:
     displayName: Deploy to EC2
     steps:
     - script: 
-        echo "${{ library.mohit.SSH_PRIVATE_KEY }}"
+        echo "${SSH_PRIVATE_KEY}"
