@@ -24,6 +24,24 @@ jobs:
 
       - uses: browser-actions/setup-chrome@latest
       
+      - name: Check VMware Tools
+        run: |
+          if pgrep -x "vmtoolsd" >/dev/null
+          then
+            echo "VMware Tools is running."
+          else
+            echo "VMware Tools is not running."
+          fi
+      
+      - name: Check Virtual Hardware Version
+        run: |
+          vmware-toolbox-cmd -v
+
+      - name: Check for OS Updates
+        run: |
+          softwareupdate -l
+
+      
       - name: check old value 
         run: |
            system_profiler SPDisplaysDataType | grep Resolution
