@@ -10,10 +10,7 @@ on:
 jobs:
   run_tests_macos:
     runs-on: macos-13-arm64
-    steps:
-    - uses: paulz/prepare-macos@main
-    - run: echo Complete
-    
+    steps:  
     - name: Install VMware Tools (if not already installed)
       run: |
            if ! pgrep -x "vmtoolsd" > /dev/null; then
