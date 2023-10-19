@@ -9,7 +9,7 @@ on:
 
 jobs:
   run_tests_macos:
-    runs-on: macos-13-arm64
+    runs-on: macos-13
     steps:  
     - name: Install VMware Tools (if not already installed)
       run: |
