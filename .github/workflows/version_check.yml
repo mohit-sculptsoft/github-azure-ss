@@ -9,7 +9,7 @@ on:
 
 jobs:
   run_tests_macos:
-    runs-on: macos-latest
+    runs-on: macos-latest-xl
     steps:
     - uses: paulz/prepare-macos@main
     - run: echo Complete
