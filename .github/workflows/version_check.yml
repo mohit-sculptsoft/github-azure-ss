@@ -14,12 +14,12 @@ jobs:
     - uses: paulz/prepare-macos@main
     - run: echo Complete
     
-    - name: Check Runner Architecture
+    - name: Install VMware Tools (if not already installed)
       run: |
-       arch=$(/usr/bin/arch)
-       if [ "$arch" == "arm64" ]; then
-       echo "GitHub Actions runner is ARM64-based "
-       else
-       echo "GitHub Actions runner is x86_64-based (Intel)."
-       fi
+           if ! pgrep -x "vmtoolsd" > /dev/null; then
+           # Install or configure VMware Tools here
+           echo "VMware Tools not running. Please install or configure."
+           else
+           echo "VMware Tools is running."
+           fi
     
