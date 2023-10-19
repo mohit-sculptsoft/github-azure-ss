@@ -9,7 +9,7 @@ on:
 
 jobs:
   run_tests_macos:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
