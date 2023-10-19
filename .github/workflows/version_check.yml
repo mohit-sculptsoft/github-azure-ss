@@ -1,0 +1,22 @@
+name: finding processor version macos
+env:
+  TEST_BROWSER: 'chrome'
+  TEST_ENVIRONMENT: 'staging'
+on:
+  push:
+    branches:
+      - test-automation
+
+jobs:
+  run_tests_macos:
+    runs-on: macos-latest
+    steps:
+      - name: Check Runner Architecture
+        run: |
+         arch=$(/usr/bin/arch)
+         if [ "$arch" == "arm64" ]; then
+         echo "GitHub Actions runner is ARM64-based "
+         else
+         echo "GitHub Actions runner is x86_64-based (Intel)."
+         fi
+    
