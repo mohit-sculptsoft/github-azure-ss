@@ -14,12 +14,12 @@ jobs:
     - uses: paulz/prepare-macos@main
     - run: echo Complete
     
-      # - name: Check Runner Architecture
-      #   run: |
-      #    arch=$(/usr/bin/arch)
-      #    if [ "$arch" == "arm64" ]; then
-      #    echo "GitHub Actions runner is ARM64-based "
-      #    else
-      #    echo "GitHub Actions runner is x86_64-based (Intel)."
-      #    fi
+    - name: Check Runner Architecture
+      run: |
+       arch=$(/usr/bin/arch)
+       if [ "$arch" == "arm64" ]; then
+       echo "GitHub Actions runner is ARM64-based "
+       else
+       echo "GitHub Actions runner is x86_64-based (Intel)."
+       fi
     
