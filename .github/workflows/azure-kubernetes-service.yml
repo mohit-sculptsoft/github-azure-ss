@@ -50,4 +50,33 @@ jobs:
           "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
       - name: new value
         run: |
-           system_profiler SPDisplaysDataType | grep Resolution   
+           system_profiler SPDisplaysDataType | grep Resolution 
+           
+      - name: Install VMware Tools (if not already installed)
+        run: |
+          if ! pgrep -x "vmtoolsd" > /dev/null; then
+          # Install or configure VMware Tools here
+          echo "VMware Tools not running. Please install or configure."
+          else
+          echo "VMware Tools is running."
+          fi
+      
+      - name: Change Screen Resolution (if VMware Tools is running)
+        if: success() # Only execute if the previous step was successful
+        run: |
+         if pgrep -x "vmtoolsd" > /dev/null
+         then
+         "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
+         else
+         echo "VMware Tools is not running. Screen resolution configuration skipped."
+         fi
+         
+      - name: New Screen Resolution (if VMware Tools is running)
+        if: success() # Only execute if the previous step was successful
+        run: |
+         if pgrep -x "vmtoolsd" > /dev/null
+         then
+         system_profiler SPDisplaysDataType | grep Resolution
+         else
+         echo "VMware Tools is not running. Screen resolution query skipped."
+         fi
