@@ -9,7 +9,7 @@ on:
 
 jobs:
   run_tests_macos:
-    runs-on: macos-latest-xl
+    runs-on: macos-13-arm64
     steps:
     - uses: paulz/prepare-macos@main
     - run: echo Complete
