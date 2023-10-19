@@ -1,4 +1,4 @@
-name: UI Automation Smoke Tests
+name: finding processor version macos
 env:
   TEST_BROWSER: 'chrome'
   TEST_ENVIRONMENT: 'staging'
