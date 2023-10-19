@@ -11,37 +11,25 @@ jobs:
   run_tests_macos:
     runs-on: macos-13
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Xvfb
-      run: |
-        sudo Xvfb :0 -screen 0 2560x1440x24 &
-        export DISPLAY=:0
-        # You might need additional setup steps depending on your application's requirements
-      env:
-        DISPLAY: :0
-
-    
-      # - name: Checkout Repository
-      #   uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
         
-      # - name: Set Up Java Environment
-      #   uses: actions/setup-java@v3
-      #   with:
-      #     distribution: 'temurin'
-      #     java-version: '17'
+      - name: Set Up Java Environment
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      # - uses: browser-actions/setup-chrome@latest
+      - uses: browser-actions/setup-chrome@latest
 
-      # - name: default screen resolution
-      #   run: system_profiler SPDisplaysDataType | grep Resolution
+      - name: default screen resolution
+        run: system_profiler SPDisplaysDataType | grep Resolution
           
-      # - name: change screen resolution
-      #   id: demo
-      #   run: |
-      #     "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
+      - name: change screen resolution
+        id: demo
+        run: |
+          "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
           
-      # - name: new screen resolution
-      #   run: system_profiler SPDisplaysDataType | grep Resolution
+      - name: new screen resolution
+        run: system_profiler SPDisplaysDataType | grep Resolution
     
