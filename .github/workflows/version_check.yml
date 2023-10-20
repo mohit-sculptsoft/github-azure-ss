@@ -10,10 +10,17 @@ on:
 jobs:
   run_tests_macos_dev:
     runs-on: macos-latest
-    if: github.ref_name == 'test-automation'
+    if: github.ref_name == 'test-develop'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Clone Regression Tests Repository
+        uses: actions/checkout@v3
+        with:
+          repository: Intelliante/ui-automation  # Specify the username and repository name
+          ref: master  # Specify the branch you want to clone
+          token: ${{ secrets.PAT }}  # Add a secret named PAT with your Personal Access Token
 
       - name: Set Up Java Environment
         uses: actions/setup-java@v3
@@ -30,7 +37,14 @@ jobs:
         id: demo
         run: |
           "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
+
+      - name: Again change screen resolution
+        run: |
+          "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
+          
           
       - name: new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
 
+      - name: Run smoke Tests
+        run: mvn clean test -Dsurefire.suiteXmlFiles=testsuites/smoke.xml
