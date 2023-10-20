@@ -8,12 +8,13 @@ on:
       - test-automation
 
 jobs:
-  run_tests_macos:
+  run_tests_macos_dev:
     runs-on: macos-latest
+    if: github.ref_name == 'test-automation'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        
+
       - name: Set Up Java Environment
         uses: actions/setup-java@v3
         with:
@@ -32,4 +33,4 @@ jobs:
           
       - name: new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
-    
+
