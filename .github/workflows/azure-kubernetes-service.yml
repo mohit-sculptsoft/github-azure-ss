@@ -8,13 +8,19 @@ on:
       - test-automation
 
 jobs:
-  run_tests_macos:
 
+  run_tests_macos_dev:
     runs-on: macos-latest
-    environment: staging
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Clone Regression Tests Repository
+        uses: actions/checkout@v3
+        with:
+          repository: Intelliante/ui-automation  # Specify the username and repository name
+          ref: master  # Specify the branch you want to clone
+          token: ${{ secrets.PAT }}  # Add a secret named PAT with your Personal Access Token
 
       - name: Set Up Java Environment
         uses: actions/setup-java@v3
@@ -23,60 +29,17 @@ jobs:
           java-version: '17'
 
       - uses: browser-actions/setup-chrome@latest
-      
-      - name: Check VMware Tools
-        run: |
-          if pgrep -x "vmtoolsd" >/dev/null
-          then
-            echo "VMware Tools is running."
-          else
-            echo "VMware Tools is not running."
-          fi
-      
-      - name: Check Virtual Hardware Version
-        run: |
-          vmware-toolbox-cmd -v
 
-      - name: Check for OS Updates
-        run: |
-          softwareupdate -l
-
-      
-      - name: check old value 
-        run: |
-           system_profiler SPDisplaysDataType | grep Resolution
       - name: screen resolution
         run: |
+          system_profiler SPDisplaysDataType | grep Resolution
           "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
-      - name: new value
-        run: |
-           system_profiler SPDisplaysDataType | grep Resolution 
-           
-      - name: Install VMware Tools (if not already installed)
-        run: |
-          if ! pgrep -x "vmtoolsd" > /dev/null; then
-          # Install or configure VMware Tools here
-          echo "VMware Tools not running. Please install or configure."
-          else
-          echo "VMware Tools is running."
-          fi
-      
-      - name: Change Screen Resolution (if VMware Tools is running)
-        if: success() # Only execute if the previous step was successful
-        run: |
-         if pgrep -x "vmtoolsd" > /dev/null
-         then
-         "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
-         else
-         echo "VMware Tools is not running. Screen resolution configuration skipped."
-         fi
-         
-      - name: New Screen Resolution (if VMware Tools is running)
-        if: success() # Only execute if the previous step was successful
-        run: |
-         if pgrep -x "vmtoolsd" > /dev/null
-         then
-         system_profiler SPDisplaysDataType | grep Resolution
-         else
-         echo "VMware Tools is not running. Screen resolution query skipped."
-         fi
+          system_profiler SPDisplaysDataType | grep Resolution
+      - name: Run smoke Tests
+        run: mvn clean test -Dsurefire.suiteXmlFiles=testsuites/smoke.xml
+
+      - if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs-artifact-macos
+          path: logs
