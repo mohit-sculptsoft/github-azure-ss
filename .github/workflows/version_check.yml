@@ -1,4 +1,4 @@
-name: finding processor version macos
+name: finding processor version macos with screenshots
 env:
   TEST_BROWSER: 'chrome'
   TEST_ENVIRONMENT: 'staging'
