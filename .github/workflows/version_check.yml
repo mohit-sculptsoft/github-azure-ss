@@ -22,6 +22,10 @@ jobs:
       - name: default screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
 
+      - name: Print Current Directory
+        run: pwd
+
+
       - name: Capture Screenshot Before Resolution Change
         run: screencapture -R0,0,2560,1440 ~/before_resolution.png
           
@@ -35,9 +39,6 @@ jobs:
           
       - name: new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
-
-      - name: List Files in Home Directory
-        run: ls -la /Users/runner/home/
 
         
       - name: Upload Screenshots
