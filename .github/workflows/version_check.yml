@@ -10,7 +10,6 @@ on:
 jobs:
   run_tests_macos_dev:
     runs-on: macos-latest
-    if: github.ref_name == 'test-develop'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
