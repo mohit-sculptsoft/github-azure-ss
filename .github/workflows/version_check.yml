@@ -5,7 +5,7 @@ on:
       - test-automation
 
 jobs:
-  run_tests_macos_dev:
+  run_macos_resolution_check:
     runs-on: macos-latest
     steps:
       - name: Checkout Repository
