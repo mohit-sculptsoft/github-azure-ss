@@ -14,13 +14,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Clone Regression Tests Repository
-        uses: actions/checkout@v3
-        with:
-          repository: Intelliante/ui-automation  # Specify the username and repository name
-          ref: master  # Specify the branch you want to clone
-          token: ${{ secrets.PAT }}  # Add a secret named PAT with your Personal Access Token
-
       - name: Set Up Java Environment
         uses: actions/setup-java@v3
         with:
