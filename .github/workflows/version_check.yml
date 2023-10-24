@@ -32,19 +32,26 @@ jobs:
 
       - name: default screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
+
+      - name: Capture Screenshot Before Resolution Change
+        run: screencapture -R0,0,2560,1440 ~/before_resolution.png
           
       - name: change screen resolution
         id: demo
         run: |
           "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
-
-      - name: Again change screen resolution
-        run: |
-          "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
           
+      - name: Capture Screenshot After Resolution Change
+        run: screencapture -R0,0,2560,1440 ~/after_resolution.png        
           
       - name: new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
+        
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: ~/before_resolution.png, ~/after_resolution.png
 
       - name: Run smoke Tests
         run: mvn clean test -Dsurefire.suiteXmlFiles=testsuites/smoke.xml
