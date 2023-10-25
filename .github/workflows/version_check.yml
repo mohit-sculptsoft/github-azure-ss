@@ -50,7 +50,9 @@ jobs:
       - name: new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
 
-        
+      - name: List Screenshots Directory
+        run: ls -la /Users/runner/work/github-azure-ss/github-azure-ss/screenshots/
+
       - if: always() 
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
