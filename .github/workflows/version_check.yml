@@ -22,13 +22,15 @@ jobs:
       - name: default screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
 
-      - name: Print Current Directory
-        run: pwd
+      - run: mkdir -p ./screenshots
+
+      - run: echo hello > ./screenshots/world.txt
+
 
 
       - name: Capture Screenshot Before Resolution Change
         run: |
-          screencapture -R0,0,2560,1440 /Users/runner/work/github-azure-ss/github-azure-ss/before_resolution.png
+          screencapture -R0,0,2560,1440 ./screenshots/before_resolution.png
           ls -l
           pwd
           
@@ -39,7 +41,7 @@ jobs:
           
       - name: Capture Screenshot After Resolution Change
         run: |
-          screencapture -R0,0,2560,1440 /Users/runner/work/github-azure-ss/github-azure-ss/after_resolution.png        
+          screencapture -R0,0,2560,1440 ./screenshots/after_resolution.png        
           ls -l
           pwd
           
@@ -52,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
-          path: /Users/runner/work/github-azure-ss/github-azure-ss/before_resolution.png, /Users/runner/work/github-azure-ss/github-azure-ss/after_resolution.png
+          path: ./screenshots/before_resolution.png, ./screenshots/after_resolution.png
 
       - name: Run smoke Tests
         run: mvn clean test -Dsurefire.suiteXmlFiles=testsuites/smoke.xml
