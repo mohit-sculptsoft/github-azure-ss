@@ -19,6 +19,10 @@ jobs:
 
       - uses: browser-actions/setup-chrome@latest
 
+      - name: Check Current User
+        run: whoami
+
+
       - name: default screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
 
