@@ -34,7 +34,7 @@ jobs:
 
       - name: Capture Screenshot Before Resolution Change
         run: |
-          screencapture -R0,0,2560,1440 screenshots/before_resolution.png
+          screencapture screenshots/before_resolution.png
           cd ./screenshots/
           ls -l
           pwd
@@ -46,7 +46,7 @@ jobs:
           
       - name: Capture Screenshot After Resolution Change
         run: |
-          screencapture -R0,0,2560,1440 screenshots/after_resolution.png        
+          screencapture screenshots/after_resolution.png        
           cd ./screenshots/
           ls -l
           pwd
