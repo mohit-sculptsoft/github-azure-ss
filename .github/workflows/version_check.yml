@@ -48,7 +48,7 @@ jobs:
 
         
       - name: Upload Screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: screenshots
           path: /Users/runner/work/github-azure-ss/github-azure-ss/before_resolution.png, /Users/runner/work/github-azure-ss/github-azure-ss/after_resolution.png
