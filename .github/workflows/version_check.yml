@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
-          path: ./screenshots/before_resolution.png, ./screenshots/after_resolution.png
+          path: /Users/runner/work/github-azure-ss/github-azure-ss/screenshots/before_resolution.png, /Users/runner/work/github-azure-ss/github-azure-ss/screenshots/after_resolution.png
 
       - name: Run smoke Tests
         run: mvn clean test -Dsurefire.suiteXmlFiles=testsuites/smoke.xml
