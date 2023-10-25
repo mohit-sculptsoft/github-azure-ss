@@ -47,7 +47,8 @@ jobs:
         run: system_profiler SPDisplaysDataType | grep Resolution
 
         
-      - name: Upload Screenshots
+      - if: always() 
+        name: Upload Screenshots
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
