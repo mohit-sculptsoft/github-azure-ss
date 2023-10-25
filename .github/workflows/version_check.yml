@@ -27,7 +27,10 @@ jobs:
 
 
       - name: Capture Screenshot Before Resolution Change
-        run: screencapture -R0,0,2560,1440 /Users/runner/work/github-azure-ss/github-azure-ss/before_resolution.png
+        run: |
+          screencapture -R0,0,2560,1440 /Users/runner/work/github-azure-ss/github-azure-ss/before_resolution.png
+          ls -l
+          pwd
           
       - name: change screen resolution
         id: demo
@@ -35,7 +38,10 @@ jobs:
           "/Library/Application Support/VMware Tools/vmware-resolutionSet" 2560 1440
           
       - name: Capture Screenshot After Resolution Change
-        run: screencapture -R0,0,2560,1440 /Users/runner/work/github-azure-ss/github-azure-ss/after_resolution.png        
+        run: |
+          screencapture -R0,0,2560,1440 /Users/runner/work/github-azure-ss/github-azure-ss/after_resolution.png        
+          ls -l
+          pwd
           
       - name: new screen resolution
         run: system_profiler SPDisplaysDataType | grep Resolution
